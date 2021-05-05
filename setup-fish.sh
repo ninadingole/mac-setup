@@ -6,6 +6,7 @@ set -e
 source logger.sh
 
 FISH_CONFIG=~/.config/fish
+OMF_CONFIG=~/.config/omf
 
 function setup_fisher {
     info "Setting fisher plugin manager"
@@ -15,7 +16,16 @@ function setup_fisher {
 }
 
 function setup_omf {
+    info "Setting OMF manager"
     curl -L https://get.oh-my.fish | fish
+    fish -c "omf update"
+
+    info "Setting up Bundles and themes"
+
+    ln -s $PWD/fish/omf/bundle $OMF_CONFIG/bundle
+    ln -s $PWD/fish/omf/theme $OMF_CONFIG/theme
+
+    fish -c "omf update"
 }
 
 function setup_paths {
@@ -31,8 +41,8 @@ function setup_aliases {
     ln -s $PWD/fish/docker.alias.fish ~/.config/fish/conf.d/docker.alias.fish
 }
 
-# setup_fisher
-# setup_omf
+setup_fisher
+setup_omf
 setup_paths
 setup_aliases
 

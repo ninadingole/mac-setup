@@ -1,0 +1,4 @@
+package autojump
+package fzf
+theme default
+theme pure
