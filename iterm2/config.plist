@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<array>
+	<dict>
+		<key>class</key>
+		<string>iTermStatusBarCPUUtilizationComponent</string>
+		<key>configuration</key>
+		<dict>
+			<key>knobs</key>
+			<dict>
+				<key>base: compression resistance</key>
+				<integer>1</integer>
+				<key>base: priority</key>
+				<integer>5</integer>
+			</dict>
+			<key>layout advanced configuration dictionary value</key>
+			<dict>
+				<key>algorithm</key>
+				<integer>0</integer>
+				<key>auto-rainbow style</key>
+				<integer>0</integer>
+				<key>remove empty components</key>
+				<false/>
+			</dict>
+		</dict>
+	</dict>
+	<dict>
+		<key>class</key>
+		<string>iTermStatusBarMemoryUtilizationComponent</string>
+		<key>configuration</key>
+		<dict>
+			<key>knobs</key>
+			<dict>
+				<key>base: compression resistance</key>
+				<integer>1</integer>
+				<key>base: priority</key>
+				<integer>5</integer>
+			</dict>
+			<key>layout advanced configuration dictionary value</key>
+			<dict>
+				<key>algorithm</key>
+				<integer>0</integer>
+				<key>auto-rainbow style</key>
+				<integer>0</integer>
+				<key>remove empty components</key>
+				<false/>
+			</dict>
+		</dict>
+	</dict>
+	<dict>
+		<key>class</key>
+		<string>iTermStatusBarNetworkUtilizationComponent</string>
+		<key>configuration</key>
+		<dict>
+			<key>knobs</key>
+			<dict>
+				<key>base: compression resistance</key>
+				<integer>1</integer>
+				<key>base: priority</key>
+				<integer>5</integer>
+			</dict>
+			<key>layout advanced configuration dictionary value</key>
+			<dict>
+				<key>algorithm</key>
+				<integer>0</integer>
+				<key>auto-rainbow style</key>
+				<integer>0</integer>
+				<key>remove empty components</key>
+				<false/>
+			</dict>
+		</dict>
+	</dict>
+	<dict>
+		<key>class</key>
+		<string>iTermStatusBarBatteryComponent</string>
+		<key>configuration</key>
+		<dict>
+			<key>knobs</key>
+			<dict>
+				<key>base: compression resistance</key>
+				<integer>1</integer>
+				<key>base: priority</key>
+				<integer>5</integer>
+			</dict>
+			<key>layout advanced configuration dictionary value</key>
+			<dict>
+				<key>algorithm</key>
+				<integer>0</integer>
+				<key>auto-rainbow style</key>
+				<integer>0</integer>
+				<key>remove empty components</key>
+				<false/>
+			</dict>
+		</dict>
+	</dict>
+</array>
+</plist>

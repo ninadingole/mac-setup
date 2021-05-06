@@ -24,14 +24,12 @@ function set_fish_as_default_shell {
 
 function set_iterm2_profile {
     info "Setting iterm2 profile"
-    PROFILE_PATH=~/Library/Application\ Support/iTerm2/DynamicProfiles
-    [ ! -d "$PROFILE_PATH" ] && echo "path not found"
+    PLIST_PATH=~/Library/Preferences/com.googlecode.iterm2.plist
     
-    if [ -e "$PROFILE_PATH/profile.json" ]; then
-        warn "Skipping symlink as profile already exist"
-    else
-        ln -s $PWD/iterm2/profile.json "$PROFILE_PATH/profile.json"
-    fi
+    plutil -replace "New Bookmarks".0."Normal Font" -string "ConsolasForPowerline 15" $PLIST_PATH
+    plutil -replace "New Bookmarks".0."Non Ascii Font" -string "RobotoMonoNerdFontCompleteM-Regular 15" $PLIST_PATH
+    plutil -replace "New Bookmarks".0."Status Bar Layout".components -xml "$(cat $PWD/iterm2/config.plist)" $PLIST_PATH
+    plutil -replace "New Bookmarks".0."Show Status Bar" -bool TRUE $PLIST_PATH
 }
 
 function generate_ssh_key {
