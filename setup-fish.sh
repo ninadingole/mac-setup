@@ -1,8 +1,5 @@
 #!/bin/bash
 
-# Exit when any command fails
-set -e
-
 source logger.sh
 
 FISH_CONFIG=~/.config/fish
@@ -19,26 +16,36 @@ function setup_omf {
     info "Setting OMF manager"
     curl -L https://get.oh-my.fish | fish
     fish -c "omf update"
-
+    
     info "Setting up Bundles and themes"
-
+    
     ln -s $PWD/fish/omf/bundle $OMF_CONFIG/bundle
     ln -s $PWD/fish/omf/theme $OMF_CONFIG/theme
-
+    
     fish -c "omf update"
 }
 
 function setup_paths {
     info "Setting path variables"
-    ln -s $PWD/fish/paths.fish ~/.config/fish/conf.d/paths.fish
+    
+    if [ -e $FISH_CONFIG/conf.d/paths.fish ]; then
+        warn "Skipping symlink as paths.fish already exist"
+    else
+        ln -s $PWD/fish/paths.fish $FISH_CONFIG/conf.d/paths.fish
+    fi
 }
 
 function setup_aliases {
     info "Setting Aliases"
-    ln -s $PWD/fish/alias.fish ~/.config/fish/conf.d/alias.fish
-    ln -s $PWD/fish/git.alias.fish ~/.config/fish/conf.d/git.alias.fish
-    ln -s $PWD/fish/k8s.alias.fish ~/.config/fish/conf.d/k8s.alias.fish
-    ln -s $PWD/fish/docker.alias.fish ~/.config/fish/conf.d/docker.alias.fish
+    
+    shopt -s nullglob
+    for i in `find ./fish -name "*.fish" -exec basename {} \;`; do
+        if [ -e $FISH_CONFIG/conf.d/$i ]; then
+            warn "Skipping symlink as $i already exist"
+        else
+            ln -s $PWD/fish/$i $FISH_CONFIG/conf.d/$i
+        fi
+    done
 }
 
 setup_fisher
