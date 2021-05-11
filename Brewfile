@@ -54,6 +54,7 @@ brew "mas"
 brew "mcrypt"
 brew "minikube"
 brew "netpbm"
+brew "nvm"
 brew "opencv"
 brew "podman"
 brew "pulumi"
@@ -110,12 +111,14 @@ cask "paragon-ntfs"
 cask "phantomjs"
 cask "pock"
 cask "postman"
+cask "softmaker-freeoffice"
 cask "spotify"
 cask "ticktick"
 cask "visual-studio-code"
 cask "vlc"
 mas "1Password 7", id: 1333542190
 mas "AdBlock", id: 1402042596
+mas "Adblock Plus", id: 1432731683
 mas "AwesomeScreenshot", id: 1531282066
 mas "GarageBand", id: 682658836
 mas "Ghostery Lite", id: 1436953057
@@ -127,4 +130,5 @@ mas "Numbers", id: 409203825
 mas "OneTab", id: 1540160809
 mas "Pages", id: 409201541
 mas "Save to Pocket", id: 1477385213
+mas "Twitter", id: 1482454543
 mas "Xcode", id: 497799835

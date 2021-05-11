@@ -51,11 +51,44 @@ function set_power_management {
     sudo pmset -c sleep 0
 }
 
+function setup_1password_cli {
+    info "Signing to 1password cli"
+    
+    read -p "Enter email address for login: " email
+    read -p "Enter secret: " secret
+    
+    op signin my.1password.com $email $secret
+    
+    info "signin to onepassword complete"
+}
+
+function setup_blog_login {
+    info "Setting up blog"
+    info "Getting ssh secret for blog"
+    
+    if [ -e ~/blog ]; then
+        warn "blog already setup!"
+    else
+        mkdir ~/blog
+        op get document "blog2021.pem" --output ~/blog/blog.pem
+        chmod 400 ~/blog/blog.pem
+        
+        info "blog setup done!"
+    fi
+}
+
+function setup_required_folders {
+    mkdir ~/.nvm # nvm
+}
+
+setup_required_folders
 install_brew_bundles
 set_fish_as_default_shell
 set_iterm2_profile
 setup_fish_shell
 generate_ssh_key
 set_power_management
+setup_1password_cli
+setup_blog_login
 
 info "Mac is setup. Please check for any [WARN] and do the needful and do not forget to check the todo list which need to be setup manually for now. Happy Coding!!!"
