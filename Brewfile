@@ -57,6 +57,7 @@ brew "minikube"
 brew "netpbm"
 brew "nvm"
 brew "opencv"
+brew "pngquant"
 brew "podman"
 brew "pulumi"
 brew "python@3.8"
@@ -120,6 +121,8 @@ cask "spotify"
 cask "ticktick"
 cask "visual-studio-code"
 cask "vlc"
+cask "whatsapp"
+cask "zoom"
 mas "1Password 7", id: 1333542190
 mas "AdBlock", id: 1402042596
 mas "Adblock Plus", id: 1432731683
