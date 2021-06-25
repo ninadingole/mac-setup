@@ -78,7 +78,11 @@ function setup_blog_login {
 }
 
 function setup_required_folders {
-    mkdir ~/.nvm # nvm
+    if [ -e ~/.nvm ]; then
+        warn "nvm folder already created"
+    else
+        mkdir ~/.nvm # nvm
+    fi
 }
 
 setup_required_folders
