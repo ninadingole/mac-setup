@@ -32,8 +32,8 @@ function setup_omf {
         
         info "Setting up Bundles and themes"
         
-        ln -s $PWD/fish/omf/bundle $OMF_CONFIG/bundle
-        ln -s $PWD/fish/omf/theme $OMF_CONFIG/theme
+        ln -sf $PWD/fish/omf/bundle $OMF_CONFIG/bundle
+        ln -sf $PWD/fish/omf/theme $OMF_CONFIG/theme
         
         fish -c "omf update"
     fi
