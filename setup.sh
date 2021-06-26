@@ -8,9 +8,8 @@ source logger.sh
 function install_brew_bundles {
     info "Installing Homebrew"
     
-    OUTPUT=$(brew --version)
-    
-    if [ $? -ne 0 ]; then
+    if ! command -v brew &> /dev/null
+    then
         sh -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
     else
         warn "Brew exists"
