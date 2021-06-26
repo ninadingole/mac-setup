@@ -84,6 +84,14 @@ function setup_required_folders {
     fi
 }
 
+function setup_node {
+    info "installing node"
+    
+    fish -c "nvm install 16"
+    
+    info "Installation of node v16 is complete"
+}
+
 setup_required_folders
 install_brew_bundles
 set_fish_as_default_shell
@@ -93,5 +101,7 @@ generate_ssh_key
 set_power_management
 setup_1password_cli
 setup_blog_login
+setup_node
 
 info "Mac is setup. Please check for any [WARN] and do the needful and do not forget to check the todo list which need to be setup manually for now. Happy Coding!!!"
+info "Restart your cli after this setup"
