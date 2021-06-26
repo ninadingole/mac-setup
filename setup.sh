@@ -38,6 +38,7 @@ function set_iterm2_profile {
     
     plutil -replace "New Bookmarks".0."Normal Font" -string "ConsolasForPowerline 15" $PLIST_PATH
     plutil -replace "New Bookmarks".0."Non Ascii Font" -string "RobotoMonoNerdFontCompleteM-Regular 15" $PLIST_PATH
+    plutil -replace "New Bookmarks".0."Use Non-ASCII Font" -bool TRUE $PLIST_PATH
     plutil -replace "New Bookmarks".0."Status Bar Layout".components -xml "$(cat $PWD/iterm2/config.plist)" $PLIST_PATH
     plutil -replace "New Bookmarks".0."Show Status Bar" -bool TRUE $PLIST_PATH
 }
@@ -62,7 +63,7 @@ function setup_1password_cli {
     
     TOKEN=$(op signin --raw my.1password.com $email $secret)
     export OP_SESSION_my=$TOKEN
-    
+
     info "signin to onepassword complete"
 }
 
