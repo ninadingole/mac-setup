@@ -19,6 +19,10 @@ function install_brew_bundles {
     brew bundle install -v --no-lock --file Brewfile
 }
 
+function accept_xcode_license {
+    sudo xcodebuild -license accept
+}
+
 function set_fish_as_default_shell {
     info "Setting fish as default shell"
     BREW_PREFIX=$(brew --prefix)
@@ -94,6 +98,7 @@ function setup_node {
 
 setup_required_folders
 install_brew_bundles
+accept_xcode_license
 set_fish_as_default_shell
 set_iterm2_profile
 setup_fish_shell
