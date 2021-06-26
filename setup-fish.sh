@@ -11,12 +11,13 @@ function setup_fisher {
     if [ -e $FISH_CONFIG/functions/fisher.fish ] && [ -e $FISH_CONFIG/completions/fisher.fish ]; then
         warn "fisher already exists"
     else
+        mkdir -p $FISH_CONFIG
         curl -sL "https://raw.githubusercontent.com/jorgebucaran/fisher/main/functions/fisher.fish" > $FISH_CONFIG/functions/fisher.fish
         curl -sL "https://raw.githubusercontent.com/jorgebucaran/fisher/main/completions/fisher.fish" > $FISH_CONFIG/completions/fisher.fish
         
         ln -s $PWD/fish/fisher/fish_plugins $FISH_CONFIG/fish_plugins
         
-        fisher update
+        fish -c "fisher update"
     fi
 }
 
