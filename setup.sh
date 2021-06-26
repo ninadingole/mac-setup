@@ -60,7 +60,8 @@ function setup_1password_cli {
     read -p "Enter email address for login: " email
     read -p "Enter secret: " secret
     
-    op signin my.1password.com $email $secret
+    TOKEN=$(op signin --raw my.1password.com $email $secret)
+    export OP_SESSION_my=$TOKEN
     
     info "signin to onepassword complete"
 }
