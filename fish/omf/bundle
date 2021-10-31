@@ -1,4 +1,6 @@
 package autojump
 package fzf
+theme bobthefish
 theme default
 theme pure
+theme sushi

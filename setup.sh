@@ -4,6 +4,9 @@
 set -e
 
 source logger.sh
+source k9s/setup.sh
+
+SHELL=$1
 
 function install_brew_bundles {
     info "Installing Homebrew"
@@ -23,15 +26,6 @@ function accept_xcode_license {
     sudo xcodebuild -license accept
 }
 
-function set_fish_as_default_shell {
-    info "Setting fish as default shell"
-    BREW_PREFIX=$(brew --prefix)
-    if ! fgrep -q "${BREW_PREFIX}/bin/fish" /etc/shells; then
-        echo "${BREW_PREFIX}/bin/fish" | sudo tee -a /etc/shells
-    fi
-    chsh -s "${BREW_PREFIX}/bin/fish"
-}
-
 function set_iterm2_profile {
     info "Setting iterm2 profile"
     PLIST_PATH=~/Library/Preferences/com.googlecode.iterm2.plist
@@ -47,8 +41,24 @@ function generate_ssh_key {
     sh ./ssh-key-generator.sh
 }
 
-function setup_fish_shell {
-    sh ./setup-fish.sh
+function setup_shell {
+    if [ $SHELL == "fish" ]; then
+        sh ./setup-fish.sh
+        set_fish_as_default_shell
+    fi
+    
+    if [ $SHELL == "zsh" ]; then
+        sh ./setup-zsh.sh
+    fi
+}
+
+function set_fish_as_default_shell {
+    info "Setting fish as default shell"
+    BREW_PREFIX=$(brew --prefix)
+    if ! fgrep -q "${BREW_PREFIX}/bin/fish" /etc/shells; then
+        echo "${BREW_PREFIX}/bin/fish" | sudo tee -a /etc/shells
+    fi
+    chsh -s "${BREW_PREFIX}/bin/fish"
 }
 
 function set_power_management {
@@ -63,7 +73,7 @@ function setup_1password_cli {
     
     TOKEN=$(op signin --raw my.1password.com $email $secret)
     export OP_SESSION_my=$TOKEN
-
+    
     info "signin to onepassword complete"
 }
 
@@ -75,7 +85,7 @@ function setup_blog_login {
         warn "blog already setup!"
     else
         mkdir ~/blog
-        op get document "blog2021.pem" --output ~/blog/blog.pem
+        op get document $FILE_NAME --output ~/blog/blog.pem
         chmod 400 ~/blog/blog.pem
         
         info "blog setup done!"
@@ -101,14 +111,14 @@ function setup_node {
 setup_required_folders
 install_brew_bundles
 accept_xcode_license
-set_fish_as_default_shell
 set_iterm2_profile
-setup_fish_shell
+setup_shell
 generate_ssh_key
 set_power_management
 setup_1password_cli
 setup_blog_login
 setup_node
+linkK9SConfigs
 
 info "Mac is setup. Please check for any [WARN] and do the needful and do not forget to check the todo list which need to be setup manually for now. Happy Coding!!!"
 info "Restart your cli after this setup"
