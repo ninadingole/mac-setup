@@ -92,11 +92,17 @@ function setup_blog_login {
     fi
 }
 
-function setup_required_folders {
-    if [ -e ~/.nvm ]; then
-        warn "nvm folder already created"
+function copy_required_folders {
+    if [ -e ~/.config ]; then
+        warn ".config already exists, overwriting files"
+        ## accept yes from user to overwrite files
+        read -p "Do you want to overwrite files in .config folder? (y/n): " overwrite
+        if [ $overwrite == "y" ]; then
+            cp -r .config/* ~/.config/
+        fi
+
     else
-        mkdir ~/.nvm # nvm
+        cp -r .config/* ~/.config/
     fi
 }
 
@@ -108,14 +114,14 @@ function setup_node {
     info "Installation of node v16 is complete"
 }
 
-setup_required_folders
+copy_required_folders
 install_brew_bundles
 accept_xcode_license
 set_iterm2_profile
 setup_shell
 generate_ssh_key
 set_power_management
-setup_1password_cli
+# setup_1password_cli
 setup_blog_login
 setup_node
 linkK9SConfigs

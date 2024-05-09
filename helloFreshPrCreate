@@ -1,0 +1,47 @@
+#!/bin/zsh
+
+hellofreshPrCreate () {
+        branch="$(git rev-parse --abbrev-ref HEAD)" 
+        if [[ "$branch" = "master" ]] || [[ "$branch" = "main" ]]
+        then
+                return
+        fi
+        remotes=$(git remote -v show) 
+        if [[ ! "$remotes" =~ .*"github".* ]]
+        then
+                return
+        fi
+        if [[ ! "$remotes" =~ .*"hellofresh".* ]]
+        then
+                gh pr create --base=master --fill
+                return
+        fi
+        LABEL_CACHE_PATH="${HOME}/.github/hellofresh_labels.txt" 
+        mkdir -p ${HOME}/.github
+        touch -a $LABEL_CACHE_PATH
+        LABEL_TRIBE="tribe: consumer-core" 
+        LABEL_SQUAD="squad: plans" 
+        LABEL_TYPE="type: feature"
+        LABEL_PEAK="peak approved"	
+        repoName=$(basename -s .git `git config --get remote.origin.url`) 
+        if ! grep --color=auto --exclude-dir={.bzr,CVS,.git,.hg,.svn,.idea,.tox} -qFx "$repoName" $LABEL_CACHE_PATH
+        then
+                echo "I don't know if the repo has your labels, gonna attempt to create the labels for tribe, squad and type."
+                gh api --silent repos/hellofresh/${repoName}/labels -f name=${LABEL_TRIBE} -f color="d4c5f9"
+                gh api --silent repos/hellofresh/${repoName}/labels -f name=${LABEL_SQUAD} -f color="bf1e51"
+                gh api --silent repos/hellofresh/${repoName}/labels -f name=${LABEL_TYPE} -f color="6843a8"
+		gh api --silent repos/hellofresh/${repoName}/labels -f name=${LABEL_PEAK} -f color="6843a8"
+                echo "The label creation attempts are completed, saving this repo to avoid future requests."
+                echo "$repoName" >> $LABEL_CACHE_PATH
+        fi
+        branchName=`git rev-parse --abbrev-ref HEAD` 
+        branchName_uc=$(echo $branchName | tr '[:lower:]' '[:upper:]') 
+        jiraId=$(echo $branchName_uc | /usr/bin/perl -ne '/[^\/]*\/([a-zA-Z]+-[0-9]+)/ && print $1') 
+        title=$(echo $branchName | ggrep -Po "(?<=$jiraId-).*$" | tr - " " | awk '{for (i=1;i<=NF;i++) $i=toupper(substr($i,1,1)) substr($i,2)} 1') 
+        commits=$(git --no-pager log --pretty=format:%s --cherry "master...${branchName}" | awk '{print "- "$0}') 
+        body="**Ticket:** https://hellofresh.atlassian.net/browse/${jiraId}
+  **Description:** 
+  **Commits:**
+  $commits" 
+        gh pr create --base=master --title="${jiraId} - ${title}" --body="${body}" --label ${LABEL_TRIBE} --label ${LABEL_SQUAD} --label ${LABEL_TYPE}  --reviewer hf-squad-plans
+}
