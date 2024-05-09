@@ -1,0 +1,16 @@
+plugins:
+  # Defines a plugin to provide a `ctrl-l` shortcut to tail the logs while in pod view.
+  fred:
+    shortCut: Ctrl-L
+    confirm: false
+    description: Deployment logs
+    scopes:
+    - deployments
+    command: stern
+    background: false
+    args:
+    - -n
+    - $NAMESPACE
+    - --context
+    - $CONTEXT
+    - $NAME

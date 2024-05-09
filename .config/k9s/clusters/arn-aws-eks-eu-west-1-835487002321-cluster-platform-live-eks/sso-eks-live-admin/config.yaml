@@ -1,0 +1,14 @@
+k9s:
+  cluster: arn:aws:eks:eu-west-1:835487002321:cluster/platform-live-eks
+  namespace:
+    active: consumer-core
+    lockFavorites: true
+    favorites:
+    - consumer-core
+    - payments
+    - platform
+  view:
+    active: deployments
+  featureGates:
+    nodeShell: false
+  portForwardAddress: localhost

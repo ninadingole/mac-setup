@@ -1,8 +1,0 @@
-k9s:
-  refreshRate: 2
-  maxConnRetry: 5
-  headless: true
-  logger:
-    tail: 200
-    textWrap: true
-    showTime: true

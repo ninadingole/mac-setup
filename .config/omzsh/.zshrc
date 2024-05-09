@@ -11,7 +11,7 @@ setopt globdots                                        # match files starting wi
 eval "$(starship init zsh)"                            # Cross-Shell Prompt
 export PATH="$HOME/bin:$PATH"                   # Add local bin to PATH
 
-
+export K9S_CONFIG_DIR="$HOME/.config/k9s"               # K9s Config
 
 # ================ Aliases ================================
 
