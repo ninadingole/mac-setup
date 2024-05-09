@@ -2,5 +2,7 @@ package autojump
 package fzf
 theme bobthefish
 theme default
+theme flash
+theme pie
 theme pure
 theme sushi
